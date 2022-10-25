@@ -1,0 +1,15 @@
+2022-10-25 02:03:22 INFO : The overall number of images equals to 26232
+2022-10-25 02:05:40 INFO : The overall number of images equals to 26232
+2022-10-25 02:11:16 INFO : The overall number of images equals to 26232
+2022-10-25 02:13:53 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.24770] [IOA : 0.124] time_left: 1 day, 17:57:51.752173
+2022-10-25 02:19:16 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.24678] [IOA : 0.130] time_left: 1 day, 20:30:55.492740
+2022-10-25 02:20:51 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.26077] [IOA : 0.124] time_left: 1 day, 18:43:00.885523
+2022-10-25 02:26:58 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.28891] [IOA : 0.111] time_left: 1 day, 20:47:35.859763
+2022-10-25 02:29:43 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.30038] [IOA : 0.111] time_left: 1 day, 16:42:50.700845
+2022-10-25 02:31:55 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.30496] [IOA : 0.104] time_left: 1 day, 17:27:14.663641
+2022-10-25 02:34:10 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.27392] [IOA : 0.114] time_left: 1 day, 17:19:29.686939
+2022-10-25 02:42:20 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.23278] [IOA : 0.136] time_left: 1 day, 18:53:49.255540
+2022-10-25 02:49:51 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.26942] [IOA : 0.124] time_left: 1 day, 19:25:02.038602
+2022-10-25 03:09:45 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.21250] [IOA : 0.142] time_left: 1 day, 17:40:41.309513
+2022-10-25 03:11:29 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.27621] [IOA : 0.119] time_left: 1 day, 20:10:51.665941
+2022-10-25 03:13:56 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.28064] [IOA : 0.117] time_left: 1 day, 19:06:07.217677

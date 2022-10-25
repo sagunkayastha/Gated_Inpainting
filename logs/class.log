@@ -1,0 +1,24 @@
+2022-10-17 19:59:28 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.09301] [IOA : 0.964] time_left: 2 days, 5:23:17.222708
+2022-10-17 19:59:46 INFO : [Epoch 1/101] [Batch 1/82] [Mask L1 Loss: 0.07434] [IOA : 0.976] time_left: 1 day, 18:06:55.415496
+2022-10-17 20:00:04 INFO : [Epoch 1/101] [Batch 2/82] [Mask L1 Loss: 0.05546] [IOA : 0.984] time_left: 1 day, 18:04:48.554535
+2022-10-17 20:00:23 INFO : [Epoch 1/101] [Batch 3/82] [Mask L1 Loss: 0.04768] [IOA : 0.986] time_left: 1 day, 18:10:41.270883
+2022-10-17 20:00:41 INFO : [Epoch 1/101] [Batch 4/82] [Mask L1 Loss: 0.03397] [IOA : 0.991] time_left: 1 day, 18:25:16.834291
+2022-10-17 20:00:59 INFO : [Epoch 1/101] [Batch 5/82] [Mask L1 Loss: 0.02598] [IOA : 0.993] time_left: 1 day, 18:17:03.169640
+2022-10-17 20:01:18 INFO : [Epoch 1/101] [Batch 6/82] [Mask L1 Loss: 0.02200] [IOA : 0.994] time_left: 1 day, 18:20:35.530788
+2022-10-17 20:01:36 INFO : [Epoch 1/101] [Batch 7/82] [Mask L1 Loss: 0.01923] [IOA : 0.994] time_left: 1 day, 18:03:04.470993
+2022-10-17 20:05:02 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.10038] [IOA : 0.959] time_left: 2 days, 2:33:59.491594
+2022-10-17 20:05:21 INFO : [Epoch 1/101] [Batch 1/82] [Mask L1 Loss: 0.08422] [IOA : 0.971] time_left: 1 day, 19:38:15.091485
+2022-10-17 20:13:59 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.09178] [IOA : 0.965] time_left: 2 days, 6:32:24.535449
+2022-10-17 20:16:06 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.09155] [IOA : 0.965] time_left: 2 days, 0:21:50.242890
+2022-10-17 20:25:10 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.10326] [IOA : 0.957] time_left: 2 days, 1:01:16.827612
+2022-10-17 20:30:17 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.09301] [IOA : 0.964] time_left: 1 day, 23:48:11.871872
+2022-10-20 21:33:36 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.10211] [IOA : 0.957] time_left: 2 days, 1:52:38.665416
+2022-10-20 22:02:07 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.08714] [IOA : 0.968] time_left: 1 day, 20:19:17.554774
+2022-10-20 22:07:33 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.08094] [IOA : 0.971] time_left: 2 days, 0:58:04.933719
+2022-10-20 22:08:25 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.10264] [IOA : 0.957] time_left: 1 day, 18:12:14.178799
+2022-10-20 22:10:32 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.46182] [IOA : 0.432] time_left: 1 day, 19:46:56.362295
+2022-10-25 01:48:21 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.39540] [IOA : 0.477] time_left: 1 day, 19:11:58.281324
+2022-10-25 01:50:34 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.08165] [IOA : 0.971] time_left: 1 day, 19:29:38.853373
+2022-10-25 01:52:26 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.09370] [IOA : 0.964] time_left: 1 day, 19:33:13.768925
+2022-10-25 01:55:21 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.08536] [IOA : 0.969] time_left: 5 days, 3:36:01.856374
+2022-10-25 05:18:38 INFO : [Epoch 1/101] [Batch 0/82] [Mask L1 Loss: 0.08603] [IOA : 0.969] time_left: 5 days, 6:28:08.815147
