@@ -147,7 +147,7 @@ def focus_IOA(o, p):
 # ----------------------------------------
 #    Validation and Sample at training
 # ----------------------------------------
-def sample(grayscale, mask, out, save_folder, file_name, ioa):
+def sample(data_path, grayscale, mask, out, save_folder, file_name, ioa):
     # to cpu
     grayscale = grayscale[0, :, :, :].data.cpu().numpy().transpose(1, 2, 0)                     # 256 * 256 * 1
     mask = mask[0, :, :, :].data.cpu().numpy().transpose(1, 2, 0)                               # 256 * 256 * 1
@@ -163,14 +163,14 @@ def sample(grayscale, mask, out, save_folder, file_name, ioa):
     
     
     
-    focus_ioa = focus_IOA(grayscale, out)
+    # focus_ioa = focus_IOA(grayscale, out)
     
     # out = out * focus_ar
     # out[out==0]=np.nan
     
     
-    data_path = "lat_lon/"
-    fig = plot_domain_val(data_path,  grayscale,  masked_img, out, ioa, focus_ioa)
+    # data_path = "lat_lon/"
+    fig = plot_domain_val(data_path,  grayscale,  masked_img, out, ioa, 0)
     imgname = os.path.join(save_folder, 'epoch_'+str(file_name)+'.png')
     plt.savefig(imgname, dpi=200)
     
@@ -253,6 +253,7 @@ def sample_val(grayscale, mask, out, save_folder, file_name, ioa, full_ioa):
     
 # Learning rate decrease
 def adjust_learning_rate(optimizer, epoch, opt, init_lr):
+    print(type(epoch), type(opt.lr_decrease_factor), type(opt.lr_decrease_epoch))
     """Set the learning rate to the initial LR decayed by "lr_decrease_factor" every "lr_decrease_epoch" epochs"""
     lr = init_lr * (opt.lr_decrease_factor ** (epoch // opt.lr_decrease_epoch))
     for param_group in optimizer.param_groups:

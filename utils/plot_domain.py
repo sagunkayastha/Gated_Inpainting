@@ -157,6 +157,6 @@ def plot_domain_val(lat_path, arr1, arr2, arr3, ioa, full_ioa):
 
     
 
-    fig.suptitle(f"Focus IOA : {ioa:.3f} , Full IOA {full_ioa:.3f}") 
+    fig.suptitle(f"Focus IOA : {ioa:.3f}") 
     
     return fig

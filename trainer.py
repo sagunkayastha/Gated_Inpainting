@@ -31,7 +31,8 @@ def Trainer(opt):
     # ----------------------------------------
     #      Initialize training parameters
     # ----------------------------------------
-    logger = get_logger('logs/training_O3_ioa.log')
+    utils.check_path(opt.logger_path)
+    logger = get_logger(os.path.join(opt.logger_path, opt.run_name + '.log'))
     
     # cudnn benchmark accelerates the network 
     # (This flag allows you to enable the inbuilt cudnn auto-tuner to find the best algorithm to use for your hardware.)
@@ -45,10 +46,17 @@ def Trainer(opt):
     print("Batch size is changed to %d" % opt.batch_size)
     print("Number of workers is changed to %d" % opt.num_workers)
     
-    # Build path folder
+    # Build base path folder    
     utils.check_path(opt.save_path)
     utils.check_path(opt.sample_path)
 
+    # update to model_specific path
+    opt.save_path = os.path.join(opt.save_path, opt.run_name)
+    opt.sample_path = os.path.join(opt.sample_path, opt.run_name)
+    utils.check_path(opt.save_path)
+    utils.check_path(opt.sample_path)
+    
+    
     # Build networks
     generator = utils.create_generator(opt)
 
@@ -74,26 +82,23 @@ def Trainer(opt):
     # Define the dataset
     # trainset = dataset.InpaintDataset(opt)
     
-    data_path = "../../O3_inpainting/data/" 
-    
-    
     focus_ar = np.zeros((128,174))
     focus_ar[42:70,85:101]=1
     focus_ar=focus_ar[38:70,81:113]
 
     
-    camq2016 = np.load(os.path.join(data_path, "O3_CMAQ_2016.npy"))
-    camq2017 = np.load(os.path.join(data_path,"O3_CMAQ_2017.npy"))
-    camq2018 = np.load(os.path.join(data_path,"O3_CMAQ_2018.npy"))
+    camq2016 = np.load(os.path.join(opt.data_path, "O3_CMAQ_2016.npy"))
+    camq2017 = np.load(os.path.join(opt.data_path,"O3_CMAQ_2017.npy"))
+    camq2018 = np.load(os.path.join(opt.data_path,"O3_CMAQ_2018.npy"))
 
     cmaq = np.concatenate((camq2016,camq2017,camq2018),axis=0)
     del camq2016,camq2017,camq2018
 
         
-    mask1 = np.load(os.path.join(data_path,"training_mask10.npy"))
-    mask2 = np.load(os.path.join(data_path,"training_mask25.npy"))
-    mask3 = np.load(os.path.join(data_path,"training_mask40.npy"))
-    mask0 = np.load(os.path.join(data_path,"training_mask00.npy"))
+    mask1 = np.load(os.path.join(opt.data_path,"training_mask10.npy"))
+    mask2 = np.load(os.path.join(opt.data_path,"training_mask25.npy"))
+    mask3 = np.load(os.path.join(opt.data_path,"training_mask40.npy"))
+    mask0 = np.load(os.path.join(opt.data_path,"training_mask00.npy"))
 
     mask = np.concatenate((mask0,mask1,mask2,mask3),axis=0)
     del mask0,mask1,mask2,mask3
@@ -178,8 +183,8 @@ def Trainer(opt):
 
             print("\r[Epoch %d/%d] [Batch %d/%d] [Mask L1 Loss: %.5f] [Train IOA : %0.3f] " %
             ((epoch + 1), opt.epochs, batch_idx, len(train_loader), MaskL1Loss.item(), ioa))
-            utils.sample(grayscale, mask, out_wholeimg, opt.sample_path, (epoch + 1), ioa) 
-            exit()
+            
+            
             
         print("Starting Validation Loop")
         # Valudation Loop
@@ -203,6 +208,7 @@ def Trainer(opt):
             val_loss += batch_loss
             val_ioa += batch_ioa
             
+            
         val_loss = val_loss/len(valid_loader)   
         val_ioa = val_ioa/len(valid_loader)  
         epochs_rem = opt.epochs - (epoch+1)
@@ -218,9 +224,12 @@ def Trainer(opt):
         #     ((epoch + 1), opt.epochs, batch_idx, len(train_loader), MaskL1Loss.item(), val_loss, ioa, val_ioa, time_left))
         
         ## Saving loss to csv
-        dd = [epoch+1, MaskL1Loss.item(), val_loss, ioa, val_ioa,]
+        
+        dd = [epoch+1, MaskL1Loss.item(), val_loss, ioa.item(), val_ioa,]
+        
         df.loc[len(df)] = dd
-        df.to_csv('log.csv')
+        log_filename = os.path.join(opt.logger_path, opt.run_name + '.csv')
+        df.to_csv(log_filename)
                    
             
 
@@ -230,7 +239,7 @@ def Trainer(opt):
         utils.save_model(generator, (epoch + 1), opt, logger)
         # Save image
         if epoch%opt.img_save_interval == 0:
-            utils.sample(grayscale, mask, out_wholeimg, opt.sample_path, (epoch + 1))  
+            utils.sample(opt.data_path, grayscale, mask, out_wholeimg, opt.sample_path, (epoch + 1), ioa) 
         
         
     
