@@ -2,3 +2,5 @@ samples/*
 models/*
 models_ioa
 logs
+test
+**/__pycache__/

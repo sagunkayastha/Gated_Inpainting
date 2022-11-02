@@ -13,7 +13,7 @@ from utils.norm import denormal1
 # ----------------------------------------
 #                 Network
 # ----------------------------------------
-def create_generator(opt):
+def create_generator(opt, test=False):
     # Initialize the networks
     generator = network.GrayInpaintingNet(opt)
     print('Generator is created!')
@@ -23,6 +23,12 @@ def create_generator(opt):
         pretrained_net = torch.load(opt.finetune_path)
         generator = load_dict(generator, pretrained_net)
         print('Load generator with %s' % opt.finetune_path)
+        
+    elif test:
+        pretrained_net = torch.load(opt.test_model_path)
+        generator = load_dict(generator, pretrained_net)
+        print('Load generator with %s' % opt.test_model_path)
+        
     else:
         network.weights_init(generator, init_type = opt.init_type, init_gain = opt.init_gain)
         print('Initialize generator with %s type' % opt.init_type)
@@ -31,26 +37,8 @@ def create_generator(opt):
     
     return generator
 
-def create_discriminator(opt):
-    # Initialize the networks
-    discriminator = network.PatchDiscriminator(opt)
-    print('Discriminator is created!')
-    # Init the networks
-    network.weights_init(discriminator, init_type = opt.init_type, init_gain = opt.init_gain)
-    print('Initialize discriminator with %s type' % opt.init_type)
-    return discriminator
 
-def create_perceptualnet():
-    # Pre-trained VGG-16
-    vgg16 = torch.load('vgg16_pretrained.pth')
-    # Get the first 16 layers of vgg16, which is conv3_3
-    perceptualnet = network.PerceptualNet()
-    # Update the parameters
-    load_dict(perceptualnet, vgg16)
-    # It does not gradient
-    for param in perceptualnet.parameters():
-        param.requires_grad = False
-    return perceptualnet
+
 
 def load_dict(process_net, pretrained_net):
     # Get the dict from pre-trained network
@@ -68,47 +56,7 @@ def load_dict(process_net, pretrained_net):
 # ----------------------------------------
 #             PATH processing
 # ----------------------------------------
-def text_readlines(filename):
-    # Try to read a txt file and return a list.Return [] if there was a mistake.
-    try:
-        file = open(filename, 'r')
-    except IOError:
-        error = []
-        return error
-    content = file.readlines()
-    # This for loop deletes the EOF (like \n)
-    for i in range(len(content)):
-        content[i] = content[i][:len(content[i])-1]
-    file.close()
-    return content
 
-def savetxt(name, loss_log):
-    np_loss_log = np.array(loss_log)
-    np.savetxt(name, np_loss_log)
-
-def get_files(path):
-    # read a folder, return the complete path
-    ret = []
-    for root, dirs, files in os.walk(path):
-        for filespath in files:
-            ret.append(os.path.join(root, filespath))
-    return ret
-
-def get_jpgs(path):
-    # read a folder, return the image name
-    ret = []
-    for root, dirs, files in os.walk(path):
-        for filespath in files:
-            ret.append(filespath)
-    return ret
-
-def text_save(content, filename, mode = 'a'):
-    # save a list to a txt
-    # Try to save a list variable in txt file.
-    file = open(filename, mode)
-    for i in range(len(content)):
-        file.write(str(content[i]) + '\n')
-    file.close()
 
 def check_path(path):
     if not os.path.exists(path):
@@ -170,7 +118,7 @@ def sample(data_path, grayscale, mask, out, save_folder, file_name, ioa):
     
     
     # data_path = "lat_lon/"
-    fig = plot_domain_val(data_path,  grayscale,  masked_img, out, ioa, 0)
+    fig = plot_domain(data_path,  grayscale,  masked_img, out, ioa)
     imgname = os.path.join(save_folder, 'epoch_'+str(file_name)+'.png')
     plt.savefig(imgname, dpi=200)
     
@@ -226,7 +174,7 @@ def create_mask(mask):
     
     return 1-hr_mask
 
-def sample_val(grayscale, mask, out, save_folder, file_name, ioa, full_ioa):
+def sample_val(data_path, grayscale, mask, out, save_folder, file_name, ioa, full_ioa):
     # to cpu
     grayscale = grayscale[0, :, :, :].data.cpu().numpy().transpose(1, 2, 0)                     # 256 * 256 * 1
     mask = mask[0, :, :, :].data.cpu().numpy().transpose(1, 2, 0)                               # 256 * 256 * 1
@@ -240,20 +188,15 @@ def sample_val(grayscale, mask, out, save_folder, file_name, ioa, full_ioa):
     out = denormal1(out, 0, 0.45)
     
     masked_img = grayscale * (1 - mask) + mask
-
-    # out = out * focus_ar
-    # out[out==0]=np.nan
     
     
-    data_path = "lat_lon/"
-    fig = plot_domain_val(data_path,  grayscale,  masked_img, out, ioa, full_ioa)
+    fig = plot_domain_val( data_path,  grayscale,  masked_img, out, ioa, full_ioa)
     imgname = os.path.join(save_folder, file_name)
     plt.savefig(imgname)
     
     
 # Learning rate decrease
 def adjust_learning_rate(optimizer, epoch, opt, init_lr):
-    print(type(epoch), type(opt.lr_decrease_factor), type(opt.lr_decrease_epoch))
     """Set the learning rate to the initial LR decayed by "lr_decrease_factor" every "lr_decrease_epoch" epochs"""
     lr = init_lr * (opt.lr_decrease_factor ** (epoch // opt.lr_decrease_epoch))
     for param_group in optimizer.param_groups:

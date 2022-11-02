@@ -80,7 +80,7 @@ def Trainer(opt):
     # ----------------------------------------
 
     # Define the dataset
-    # trainset = dataset.InpaintDataset(opt)
+    
     
     focus_ar = np.zeros((128,174))
     focus_ar[42:70,85:101]=1

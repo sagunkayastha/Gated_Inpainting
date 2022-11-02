@@ -21,9 +21,7 @@ def parse():
     CONFIG['out_channels'] = config.getint('MODEL', 'out_channels')
     CONFIG['pad'] = config.get('MODEL', 'pad')
     CONFIG['activ_g'] = config.get('MODEL', 'activ_g')
-    CONFIG['activ_d'] = config.get('MODEL', 'activ_d')
     CONFIG['norm_g'] = config.get('MODEL', 'norm_g')
-    CONFIG['norm_d'] = config.get('MODEL', 'norm_d')
     CONFIG['init_type'] = config.get('MODEL', 'init_type')
     CONFIG['init_gain'] = config.getfloat('MODEL', 'init_gain')
     
@@ -32,6 +30,9 @@ def parse():
     CONFIG['sample_path'] = config.get('PATH', 'sample_path')
     CONFIG['data_path'] = config.get('PATH', 'data_path')
     CONFIG['logger_path'] = config.get('PATH', 'logger_path')
+    CONFIG['test_path'] = config.get('PATH', 'test_path')
+    CONFIG['finetune_path'] = config.get('PATH', 'finetune_path')
+    CONFIG['test_model_path'] = config.get('PATH', 'test_model_path')
     
     CONFIG['multi_gpu'] = config.getboolean('TRAINING', 'multi_gpu')
     CONFIG['gpu_ids'] = config.get('TRAINING', 'gpu_ids')
@@ -43,13 +44,16 @@ def parse():
     CONFIG['val_batch_size'] = config.getint('TRAINING', 'val_batch_size')
     CONFIG['imgsize'] = config.getint('TRAINING', 'imgsize')
     CONFIG['lr_g'] = config.getfloat('TRAINING', 'lr_g')
-    CONFIG['lr_d'] = config.getfloat('TRAINING', 'lr_d')
     CONFIG['b1'] = config.getfloat('TRAINING', 'b1')
     CONFIG['b2'] = config.getfloat('TRAINING', 'b2')
     CONFIG['weight_decay'] = config.getfloat('TRAINING', 'weight_decay')
     CONFIG['lr_decrease_epoch'] = config.getfloat('TRAINING', 'lr_decrease_epoch')
     CONFIG['lr_decrease_factor'] = config.getfloat('TRAINING', 'lr_decrease_factor')
     CONFIG['num_workers'] = config.getint('TRAINING', 'num_workers')
+    
+    CONFIG['test_whole'] = config.getboolean('TEST', 'test_whole')
+    CONFIG['test_samples'] = config.getint('TEST', 'test_samples')
+    
     return obj(CONFIG)
     
 if __name__ == '__main__':
