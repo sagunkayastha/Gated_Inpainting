@@ -205,7 +205,7 @@ def adjust_learning_rate(optimizer, epoch, opt, init_lr):
 # Save the model if pre_train == True
 def save_model(net, epoch, opt, logger):
     """Save the model at "checkpoint_interval" and its multiple"""
-    model_name = 'Gated_Oz_ioa_%d_batchsize%d.pth' % (epoch, opt.batch_size)
+    model_name = 'Gated_Oz_ioa_%d_batchsize%d.pth' % (epoch, opt.train_batch_size)
     model_path = os.path.join(opt.save_path, model_name)
     if opt.multi_gpu == True:
         if epoch % opt.checkpoint_interval == 0:

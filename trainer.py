@@ -41,9 +41,9 @@ def Trainer(opt):
     # Handle multiple GPUs
     gpu_num = torch.cuda.device_count()
     print("There are %d GPUs used" % gpu_num)
-    opt.batch_size *= gpu_num
+    opt.train_batch_size *= gpu_num
     opt.num_workers *= gpu_num
-    print("Batch size is changed to %d" % opt.batch_size)
+    print("Batch size is changed to %d" % opt.train_batch_size)
     print("Number of workers is changed to %d" % opt.num_workers)
     
     # Build base path folder    
@@ -135,10 +135,10 @@ def Trainer(opt):
     t_split = int(tv_split * len(trainset))
     v_split = int(len(trainset) - t_split)
     train, valid = random_split(trainset,[t_split,v_split])
-    train_loader = DataLoader(train, batch_size = opt.batch_size, shuffle = True, num_workers = opt.num_workers, pin_memory = True)
-    valid_loader = DataLoader(valid, batch_size = opt.val_batch_size, shuffle = True, num_workers = opt.num_workers, pin_memory = True)
+    train_loader = DataLoader(train, batch_size = opt.train_batch_size, shuffle = True, num_workers = opt.num_workers, pin_memory = True)
+    valid_loader = DataLoader(valid, batch_size = opt.val_batch_size, shuffle = False, num_workers = opt.num_workers, pin_memory = True)
     print(f"Total number of data: {len(trainset)}")
-    print(f"Trainset: {len(train_loader)*opt.batch_size} Validset: {len(valid_loader)*opt.val_batch_size}")
+    print(f"Trainset: {len(train_loader)*opt.train_batch_size} Validset: {len(valid_loader)*opt.val_batch_size}")
     
     
     # ----------------------------------------
